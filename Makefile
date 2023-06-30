@@ -6,46 +6,31 @@
 #    By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/06 15:09:00 by jinhyeok          #+#    #+#              #
-#    Updated: 2023/06/29 20:46:55 by jinhyeok         ###   ########.fr        #
+#    Updated: 2023/06/29 21:49:37 by jinhyeok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SOURCES = main.c
-B_SOURCES = 
-
+SOURCES = ./src/main.c
+NAME = pipex
+INCLUDE = ./include
 M_OBJ = $(SOURCES:.c=.o)
-B_OBJ = $(B_SOURCES:.c=.o)
 
-ifdef BONUS
-	OBJECTS = $(B_OBJ)
-	NAME = pipex_bonus
-else
-	OBJECTS = $(M_OBJ)
-	NAME = pipex
-endif
+all: $(NAME)
 
-all	: $(NAME)
-
-$(NAME) : $(OBJECTS)
+$(NAME): $(M_OBJ)
 	make -C libft
-	cp ./libft/libft.a ./libft.a
+	$(CC) $(CFLAGS) $^ -Llibft -lft -o $@
 
-%.o : %.c
-	$(CC) $(CFLAGS) -Llibft -lft -c $< -o $@
-bonus :
-	make BONUS=1 all
+%.o: %.c
+	$(CC) $(CFLAGS) -c $^ -I$(INCLUDE) -o $@
+
 clean :
-	make -c ft_printf clean
-	rm -rf $(M_OBJ) $(B_OBJ)
+	make -C libft clean
+	rm -rf $(M_OBJ)
 
 fclean : clean
-	rm -rf pipex
-	rm -rf pipex_bonus
+	rm -rf $(NAME)
 
-re :
-	make fclean
-	make all
-
-.PHONY : all clean fclean re bonus
+.PHONY: all

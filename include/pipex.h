@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "./libft/libft.h"
+#include "../libft/libft.h"
 #include "sys/wait.h"
 
 void	child(char **av, char **envp, int *fd);
