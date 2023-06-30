@@ -5,6 +5,7 @@ void    printer(char **in, int ac);
 int main(int ac, char **av, char **envp)
 {
 	int     fd[2];
+	int		status;
 	pid_t   id;
 
 	if (ac != 5)
@@ -19,11 +20,16 @@ int main(int ac, char **av, char **envp)
 	}
 	id = fork();
 	if (id == 0)
+		child(av, envp, fd);
+	else if (id > 0)
 	{
-		//child(av, envp, fd);
-		//child
+		wait(&status);
+		parent(av, envp, fd);
 	}
-	//parent
+	else
+	{
+		//fork_fail;
+	}
 }
 
 void    printer(char **in, int ac)
@@ -35,25 +41,38 @@ void    printer(char **in, int ac)
 	}
 	else
 	{
-
-	for (int i = 0 ; i < ac ; i++)
-	{
-		printf("%s\n", in[i]);
-	}
-	
+		for (int i = 0 ; i < ac ; i++)
+		{
+			printf("%s\n", in[i]);
+		}
 	}
 }
 
-// void    child(char **av, char **envp, int *fd)
-// {
-//     int file_in;
+void	parent(char **av, char **envp, int *fd)
+{
+	int	file_out;
 
-//     file_in = open(av[1], O_RDONLY);
-//     close(fd[0]);
-//     dup2(file_in, 0);
-//     dup2(fd[1], 1);
-//     //cmd_exec(av, envp);
-// }
+	file_out = open(av[4], O_WRONLY | O_CREAT | O_TRUNC ,0777);
+	if (file_out == -1)
+		return ;
+	dup2(file_out, 1);
+	dup2(fd[0], 0);
+	close(fd[1]);
+    cmd_exec(av[3], envp);
+}
+
+void    child(char **av, char **envp, int *fd)
+{
+    int file_in;
+
+    file_in = open(av[1], O_RDONLY);
+	if (file_in == -1)
+		return ;
+    dup2(file_in, 0);
+    dup2(fd[1], 1);
+    close(fd[0]);
+    cmd_exec(av[2], envp);
+}
 
 char    *cmd_finder(char *cmd, char **envp)
 {
@@ -133,7 +152,7 @@ void    cmd_exec(char *av, char **envp)
 	if (execve(cmd, cmd_arr, NULL) == -1)
 	{
 		pipex_free(cmd_arr);
-		//error
+		return ;
 	}
 	pipex_free(cmd_arr);
 }
