@@ -11,7 +11,11 @@ void	child(char **av, char **envp, int *fd);
 char	*cmd_finder(char *av, char **envp);
 char	*path_trimer(char **envp);
 void	pipex_free(char **input);
-void    cmd_exec(char *av, char **envp);
-void	parent(char **av, char **envp, int *fd);
+void    cmd_exec(char *av, char **envp, int origin_fd);
+void	parent(char **av, char **envp, int*fd);
+void	input_error_msg(void);
+void	pipe_error_msg(void);
+void	fork_error_msg(void);
+void	cmd_error_msg(void);
 
 #endif

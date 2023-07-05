@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhyeok <jinhyeok@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 13:05:55 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/03/17 14:00:49 by jinhyeok         ###   ########.fr       */
+/*   Created: 2023/07/03 16:37:49 by jinhyeok          #+#    #+#             */
+/*   Updated: 2023/07/03 16:41:29 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/pipex.h"
 
-int	ft_lstsize(t_list *lst)
+void    pipex_free(char **input)
 {
-	int	result;
+	int	i;
 
-	result = 0;
-	while (lst)
+	i = -1;
+	if (input)
 	{
-		result++;
-		lst = lst->next;
+		while (input[++i])
+			free(input[i]);
+		free(input);
 	}
-	return (result);
 }
+

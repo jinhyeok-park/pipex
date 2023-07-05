@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 19:01:04 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/07/03 18:39:49 by jinhyeok         ###   ########.fr       */
+/*   Created: 2023/07/03 17:09:46 by jinhyeok          #+#    #+#             */
+/*   Updated: 2023/07/05 17:08:03 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# ifndef PIPEX_BONUS_H
+#define PIPEX_BONUS_H
 
-size_t	ft_strlen(const char *c)
-{
-	size_t	i;
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include "../libft/libft.h"
+#include "sys/wait.h"
+#include "get_next_line.h"
+#include "pipex.h"
 
-	i = 0;
-	if (!c)
-		return (0);
-	while (c[i])
-		i++;
-	return (i);
-}
+
+void	here_doc_write(char *end);
+void	cmd_process(char *av, char **envp);
+void	last_process(int ac, char **av, char **envp, int file_out);
+
+//gnl
+
+# endif
