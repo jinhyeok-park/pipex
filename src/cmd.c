@@ -43,6 +43,7 @@ void    cmd_exec(char *av, char **envp, int origin_fd)
 		if (!cmd)
 		{
 			dup2(origin_fd, 1);
+			close(origin_fd);
 			pipex_free(cmd_arr);
 			cmd_error_msg();
 		}

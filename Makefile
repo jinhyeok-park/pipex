@@ -6,7 +6,7 @@
 #    By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/06 15:09:00 by jinhyeok          #+#    #+#              #
-#    Updated: 2023/07/05 17:25:55 by jinhyeok         ###   ########.fr        #
+#    Updated: 2023/07/07 08:42:38 by jinhyeok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ all: MANDATORY_FILE
 MANDATORY_FILE: $(M_OBJ)
 	rm -rf BONUS_FILE
 	make -C libft
-	$(CC) $(CFLAGS) -Llibft -lft $^ -o $(NAME)
+	$(CC) $(CFLAGS) $^ -Llibft -lft  -o $(NAME)
 	touch $@
 
 %.o: %.c
@@ -37,7 +37,7 @@ bonus : BONUS_FILE
 BONUS_FILE: $(B_OBJ)
 	rm -rf MANDATORY_FILE
 	make -C libft
-	$(CC) $(CFLAGS) -Llibft -lft $^ -o $(NAME)
+	$(CC) $(CFLAGS) $^ -Llibft -lft  -o $(NAME)
 	touch $@
 
 clean :
