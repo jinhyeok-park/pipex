@@ -6,16 +6,16 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 16:37:18 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/07/03 18:26:05by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:16:06 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-char    *path_trimer(char **envp)
+char	*path_trimer(char **envp)
 {
-	int     i;
-	char    *dup;
+	int		i;
+	char	*dup;
 
 	i = -1;
 	while (envp[++i])
@@ -29,7 +29,7 @@ char    *path_trimer(char **envp)
 	return (0);
 }
 
-void    cmd_exec(char *av, char **envp, int origin_fd)
+void	cmd_exec(char *av, char **envp)
 {
 	char	*cmd;
 	char	**cmd_arr;
@@ -42,8 +42,6 @@ void    cmd_exec(char *av, char **envp, int origin_fd)
 		cmd = cmd_finder(cmd_arr[0], envp);
 		if (!cmd)
 		{
-			dup2(origin_fd, 1);
-			close(origin_fd);
 			pipex_free(cmd_arr);
 			cmd_error_msg();
 		}
@@ -53,13 +51,12 @@ void    cmd_exec(char *av, char **envp, int origin_fd)
 		pipex_free(cmd_arr);
 		exit(1);
 	}
-	pipex_free(cmd_arr);
 }
 
-char    *cmd_finder(char *cmd, char **envp)
+char	*cmd_finder(char *cmd, char **envp)
 {
 	int		i;
-	char    **envp_path;
+	char	**envp_path;
 	char	*slash;
 	char	*stream;
 

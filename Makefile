@@ -6,7 +6,7 @@
 #    By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/06 15:09:00 by jinhyeok          #+#    #+#              #
-#    Updated: 2023/07/07 08:42:38 by jinhyeok         ###   ########.fr        #
+#    Updated: 2023/07/10 12:03:44 by jinhyeok         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 SOURCES = ./src/main.c ./src/error.c ./src/cmd.c ./src/free.c ./src/process.c
 SOURCES_BONUS = ./src_bonus/main_bonus.c ./src/error.c ./src/cmd.c ./src/free.c\
- ./src_bonus/get_next_line.c ./src_bonus/get_next_line_utils.c 
+ ./src_bonus/get_next_line.c ./src_bonus/get_next_line_utils.c \
+  ./src_bonus/pipe_control_bonus.c ./src_bonus/process_bonus.c
 
 NAME = pipex
 INCLUDE = ./include
@@ -26,7 +27,7 @@ all: MANDATORY_FILE
 MANDATORY_FILE: $(M_OBJ)
 	rm -rf BONUS_FILE
 	make -C libft
-	$(CC) $(CFLAGS) $^ -Llibft -lft  -o $(NAME)
+	$(CC) $(CFLAGS) -Llibft -lft $^ -o $(NAME)
 	touch $@
 
 %.o: %.c
@@ -37,7 +38,7 @@ bonus : BONUS_FILE
 BONUS_FILE: $(B_OBJ)
 	rm -rf MANDATORY_FILE
 	make -C libft
-	$(CC) $(CFLAGS) $^ -Llibft -lft  -o $(NAME)
+	$(CC) $(CFLAGS) -Llibft -lft $^ -o $(NAME)
 	touch $@
 
 clean :
@@ -45,10 +46,11 @@ clean :
 	rm -rf $(M_OBJ) $(B_OBJ);
 
 fclean : clean
+	make -C libft fclean
 	rm -rf MANDATORY_FILE
 	rm -rf BONUS_FILE
 	rm -rf $(NAME)
-re : 
+re :
 	make fclean
 	make all
 

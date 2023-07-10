@@ -6,16 +6,16 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:42:28 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/07/07 11:10:00 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:56:23 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	if (ac != 5)
- 		input_error_msg();
+		input_error_msg();
 	process_split(av, envp);
 }
 
